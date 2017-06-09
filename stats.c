@@ -51,30 +51,56 @@ void main() {
 }
 
 void sort_array(unsigned char *test, unsigned int size) {
-
+    unsigned char tmp;
+    for (int i = 0; i < size; ++i) {
+        for (int j = 0; j < size - (i + 1); ++j) {
+            if (test[j] < test[j + 1]) {
+                tmp = test[j];
+                test[j] = test[j + 1];
+                test[j + 1] = tmp;
+            }
+        }
+    }
 }
 
 void print_array(unsigned char *test, unsigned int size) {
-
+    printf("\n============================================================");
+    for (int i = 0; i < size; ++i) {
+        if (i % 8 == 0) printf("\n"); // eight element per line
+        printf("%d\t", test[i]);
+    }
+    printf("\n============================================================\n\n");
 }
 
 void print_statistics(unsigned char *test, unsigned int size) {
-
+    unsigned char min = find_minimum(test, size);
+    unsigned char max = find_maximum(test);
+    unsigned char mean = find_mean(test, size);
+    unsigned char median = find_median(test, size);
+    printf("Statistics for the given array:\nMinimum\t=\t%d\nMaximum\t=\t%d\nMean\t=\t%d\nMedian\t=\t%d\n", min, max,
+           mean, median);
 }
 
 unsigned char find_minimum(unsigned char *t, unsigned int size) {
-
+    return t[size - 1];
 }
 
 unsigned char find_maximum(unsigned char *t) {
-
+    return t[0];
 }
 
 unsigned char find_mean(unsigned char *t, unsigned int size) {
-
+    unsigned int sum = 0;
+    for (int i = 0; i < size; ++i) {
+        sum += t[i];
+    }
+    return (unsigned char) (sum / size);
 }
 
 unsigned char find_median(unsigned char *t, unsigned int size) {
-    
+    if (size % 2 != 0)
+        return t[size / 2];
+    unsigned char med = (unsigned char) ((t[(size - 1) / 2] + t[size / 2]) / 2);
+    return med;
 }
 
